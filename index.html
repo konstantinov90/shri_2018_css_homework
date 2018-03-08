@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="robots" content="noindex">
+    <title>ZEN</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link href="fonts/fonts.css" rel="stylesheet">
+</head>
+<body>
+    <div class="logo"></div>
+    <div class="zen"></div>
+</body>
+
+<style>
+    * {
+        font-family: 'YS Text', "sans-serif";
+    }
+    html {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    body {
+        margin: 40px;
+    }
+    .logo  {
+        height: 30px;
+        margin: 40px 0;
+        background: url(img/zen_logo@3x.png) no-repeat;
+    }
+    .zen {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-gap: 29px 16px;
+        align-items: end;
+
+    }
+    .zen__card {
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: min-content 1fr auto;
+        grid-auto-flow: row dense;
+        grid-gap: 8px;
+    }
+    .zen__card_m {
+        grid-template-rows: minmax(min-content, 0.5rem) auto 62px;
+    }
+    .zen__card_m picture {
+        align-self: end;
+    }
+    .zen__card img {
+        width: 100%;
+    }
+    .zen__card div {
+        max-height: 3rem;
+        background: white;
+        position: relative;
+    }
+    .zen__card div > h3 {
+        margin: 0;
+        padding-bottom: 8px;
+        z-index: 100;
+        max-height: 4rem;
+        background: white;
+        overflow: hidden;
+        display: block;
+    }
+    .zen__card p {
+        margin: 0;
+        min-height: 95%;
+        height: 3.5rem;
+        overflow: hidden;
+    }
+    .zen__card_s {
+        grid-column: span 2;
+    }
+    .zen__card_m {
+        grid-column: span 3;
+    }
+    .zen__card_l {
+        grid-column: span 6;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: min-content 1fr;
+        align-content: center;
+    }
+    .zen__card_l picture {
+        grid-column: span 2;
+        grid-row: span 2;
+        order: 1;
+    }
+    .zen__card_l div {
+        order: 2;
+    }
+    .zen__card_l p {
+        order: 3;
+    }
+    @media (max-width: 600px) {
+        * {
+            font-size: 15px;
+        }
+        .zen {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .zen__card_s, .zen__card_m {
+            grid-column: span 2;
+        }
+        .zen__card_l {
+            grid-column: span 4;
+            grid-template-columns: 1fr;
+        }
+        .zen__card_l div {
+            order: 1;
+            grid-column: span 4;
+        }
+        .zen__card_l p {
+            grid-column: span 4;
+        }
+    }
+    @media (max-width: 400px) {
+        * {
+            font-size: 13px;
+        }
+        body {
+            margin: 20px;
+        }
+        .zen {
+            grid-template-columns: 1fr;
+        }
+        .zen__card_s, .zen__card_m, .zen__card_l {
+            grid-column: span 1;
+        }
+        .zen__card_s p {
+            height: auto;
+        }
+    }
+</style>
+<script src="data.js"></script>
+<script>
+
+function makeCard(data) {
+    let img = '';
+    if (data.image) {
+        const [img_name, ext] = data.image.split('.');
+        img = `
+            <picture>
+                <source srcset="${img_name}@3x.${ext}" media="(min-width: 820px)">
+                <source srcset="${img_name}@2x.${ext}" media="(min-width: 620px)">
+                <source srcset="${data.image} ${img_name}@2x.${ext} 2x">
+                <img src="${img_name}@3x.${ext}">
+            </picture>
+        `;
+    }
+    const html = `
+        <div class="zen__card zen__card_${data.size} ${img? `zen__card_${data.size}_img`: ""}">
+            <div>
+                <h3 style="color: ${data.titleColor}">${data.title}</h3>
+            </div>
+            ${img}
+            ${data.description? `<p>${data.description}</p>`: ''}
+        </div>
+    `;
+    return html;
+}
+
+(function(document) {
+    
+    const html = data.map(makeCard).join('');
+    document.querySelector('.zen').innerHTML = html;
+
+})(document)
+
+</script>
+</html>
