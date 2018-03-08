@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="robots" content="noindex">
     <title>ZEN</title>
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-    <link href="fonts/fonts.css" rel="stylesheet">
+    <link rel="shortcut icon" href="https://konstantinov90.github.io/shri_2018_css_homework/favicon.png" type="image/x-icon">
+    <link href="https://konstantinov90.github.io/shri_2018_css_homework/fonts/fonts.css" rel="stylesheet">
 </head>
 <body>
     <div class="logo"></div>
@@ -28,7 +28,7 @@
     .logo  {
         height: 30px;
         margin: 40px 0;
-        background: url(img/zen_logo@3x.png) no-repeat;
+        background: url(https://konstantinov90.github.io/shri_2018_css_homework/img/zen_logo@3x.png) no-repeat;
     }
     .zen {
         display: grid;
@@ -137,7 +137,7 @@
         }
     }
 </style>
-<script src="data.js"></script>
+<script src="https://konstantinov90.github.io/shri_2018_css_homework/data.js"></script>
 <script>
 
 function makeCard(data) {
@@ -146,10 +146,10 @@ function makeCard(data) {
         const [img_name, ext] = data.image.split('.');
         img = `
             <picture>
-                <source srcset="${img_name}@3x.${ext}" media="(min-width: 820px)">
-                <source srcset="${img_name}@2x.${ext}" media="(min-width: 620px)">
-                <source srcset="${data.image} ${img_name}@2x.${ext} 2x">
-                <img src="${img_name}@3x.${ext}">
+                <source srcset="https://konstantinov90.github.io/shri_2018_css_homework/${img_name}@3x.${ext}" media="(min-width: 820px)">
+                <source srcset="https://konstantinov90.github.io/shri_2018_css_homework/${img_name}@2x.${ext}" media="(min-width: 620px)">
+                <source srcset="https://konstantinov90.github.io/shri_2018_css_homework/${data.image} ${img_name}@2x.${ext} 2x">
+                <img src="https://konstantinov90.github.io/shri_2018_css_homework/${img_name}@3x.${ext}">
             </picture>
         `;
     }
