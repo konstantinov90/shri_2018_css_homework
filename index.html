@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="robots" content="noindex">
     <title>ZEN</title>
@@ -19,6 +19,7 @@
 <style>
     * {
         font-family: 'YS Text', "sans-serif";
+        -webkit-text-size-adjust: none;
     }
 
     html {
@@ -40,24 +41,24 @@
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         grid-gap: 29px 16px;
+        grid-auto-flow: dense;
+    }
+
+    .zen__card {
+        height: 100%;
+        display: grid;
+        grid-auto-flow: row dense;
+        grid-template-columns: 1fr;
+        grid-template-rows: min-content 1fr;
     }
 
     .zen__card_s {
         grid-column: span 2;
     }
 
-    .zen__card {
-        height: 100%;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: min-content 1fr auto;
-        grid-auto-flow: row dense;
-        grid-gap: 8px;
-    }
-
     .zen__card_m {
-        grid-template-rows: minmax(min-content, 0.5rem) auto 62px;
         grid-column: span 3;
+        grid-template-rows: minmax(min-content, 0.5rem) auto calc(3.1rem + 16px);
     }
 
     .zen__card_l {
@@ -65,52 +66,73 @@
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: min-content 1fr;
         align-content: center;
+        grid-column-gap: 16px;
     }
 
     .zen__card img {
         width: 100%;
     }
 
-    .zen__card>p {
-        margin: 0;
-        min-height: 96%;
-        height: 3.5rem;
-        overflow: hidden;
+    .zen__card > div {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
     }
 
-    .zen__card>div>h3 {
+    .zen__card > div > h3 {
+        line-height: 1rem;
+        max-height: 3rem;
         margin: 0;
-        padding-bottom: 8px;
+        border-bottom: solid 16px white;
         z-index: 100;
-        max-height: 3.7rem;
         background: white;
         overflow: hidden;
         display: block;
-    }
-
-    .zen__card_m>div,
-    .zen__card_s_img>div {
-        max-height: 3rem;
-        background: white;
         position: relative;
     }
 
-    .zen__card_m>picture {
+    .zen__card > p {
+        margin: 0;
+        overflow: hidden;
+        max-height: 100%;
+        line-height: 1rem;
+        padding-top: 16px;
+    }
+    .zen__card_m > p {
+        max-height: calc(3rem + 16px);
+    }
+    .zen__card_s > p {
+        padding-top: 0;
+    }
+
+    .zen__card_m > div,
+    .zen__card_s_img > div {
+        max-height: calc(2rem + 16px);
+        overflow: visible;
+    }
+
+    .zen__card_m > picture {
         align-self: end;
     }
 
-    .zen__card_l>picture {
+    .zen__card_l > picture {
         grid-column: span 2;
         grid-row: span 2;
         order: 1;
     }
 
-    .zen__card_l>div {
+    .zen__card_l > div {
         order: 2;
     }
 
-    .zen__card_l>p {
+    .zen__card_l > p {
         order: 3;
+    }
+
+    @media (min-width: 600px) {
+        .zen__card_l > p {
+            padding-top: 0;
+        }
     }
 
     @media (max-width: 600px) {
@@ -126,21 +148,26 @@
         }
         .zen__card_l {
             grid-column: span 4;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(4, 1fr);
         }
-        .zen__card_l>div {
+        .zen__card_l > picture {
+            grid-column: span 4;
+        }
+        .zen__card_l > div {
             order: 1;
             grid-column: span 4;
         }
-        .zen__card_l>p {
+        .zen__card_l > p {
             grid-column: span 4;
+        }
+        .zen__card_l > p,
+        .zen__card_s > p {
+            max-height: unset;
+            height: 100%;
         }
     }
 
     @media (max-width: 400px) {
-        * {
-            font-size: 13px;
-        }
         body {
             margin: 20px;
         }
@@ -151,9 +178,6 @@
         .zen__card_m,
         .zen__card_l {
             grid-column: span 1;
-        }
-        .zen__card_s>p {
-            height: auto;
         }
     }
 </style>
