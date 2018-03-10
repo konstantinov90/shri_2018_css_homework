@@ -46,7 +46,7 @@
     .logo {
         height: 30px;
         margin: 40px 0;
-        background: url(/img/zen_logo@3x.png) no-repeat;
+        background: url(img/zen_logo@3x.png) no-repeat;
     }
 
 /* абсолютно позиционированные вспомогательные элементы */
@@ -389,7 +389,7 @@
         }
     }
 </style>
-<script src="/data.js"></script>
+<script src="data.js"></script>
 <script>
 
     function makeCard(data) {
@@ -399,10 +399,10 @@
             img = `
             <div class="card__picture">
                 <picture>
-                    <source srcset="/${img_name}@3x.${ext}" media="(min-width: 820px)">
-                    <source srcset="/${img_name}@2x.${ext}" media="(min-width: 620px)">
-                    <source srcset="/${data.image} ${img_name}@2x.${ext} 2x">
-                    <img src="/${img_name}@3x.${ext}">
+                    <source srcset="${img_name}@3x.${ext}" media="(min-width: 820px)">
+                    <source srcset="${img_name}@2x.${ext}" media="(min-width: 620px)">
+                    <source srcset="${data.image} ${img_name}@2x.${ext} 2x">
+                    <img src="${img_name}@3x.${ext}">
                 </picture>
             </div>
         `;
