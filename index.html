@@ -7,11 +7,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="robots" content="noindex">
     <title>ZEN</title>
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-    <link href="fonts/fonts.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link href="/fonts/fonts.css" rel="stylesheet">
 </head>
 
 <body>
+    <svg style="position: absolute; width: 0; height: 0; overflow: hidden" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+            <symbol id="icon-heart" viewBox="0 0 32 32">
+                <title>heart</title>
+                <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
+            </symbol>
+            <symbol id="icon-navigation-more" viewBox="0 0 20 20">
+                <title>navigation-more</title>
+                <path d="M4 12c-1.105 0-2-0.895-2-2s0.895-2 2-2v0c1.105 0 2 0.895 2 2s-0.895 2-2 2v0zM10 12c-1.105 0-2-0.895-2-2s0.895-2 2-2v0c1.105 0 2 0.895 2 2s-0.895 2-2 2v0zM16 12c-1.105 0-2-0.895-2-2s0.895-2 2-2v0c1.105 0 2 0.895 2 2s-0.895 2-2 2v0z"></path>
+            </symbol>
+        </defs>
+    </svg>
     <div class="logo"></div>
     <div class="zen"></div>
 </body>
@@ -34,17 +46,51 @@
     .logo {
         height: 30px;
         margin: 40px 0;
-        background: url(img/zen_logo@3x.png) no-repeat;
+        background: url(/img/zen_logo@3x.png) no-repeat;
     }
 
+/* абсолютно позиционированные вспомогательные элементы */
+    .card > h4 {
+        color: white;
+        font-size: 14px;
+        font-weight: 600px;
+        margin: 10px;
+        z-index: 2;
+        align-self: end;
+    }
+
+    .icon {
+        display: inline-block;
+        width: 1.2em;
+        height: 1em;
+        stroke-width: 0;
+        stroke: #dadada;
+        fill: #dadada;
+        z-index: 3;
+        justify-self: end;
+    }
+
+    .icon-heart:hover {
+        fill: #e93c4e;
+        cursor: pointer;
+    }
+
+    .icon-navigation-more:hover {
+        fill: #2e7cf0;
+        cursor: pointer;
+    }
+
+/* главный грид */
     .zen {
         display: grid;
+        max-width: 704px;
         grid-template-columns: repeat(6, 1fr);
         grid-gap: 29px 16px;
         grid-auto-flow: dense;
     }
 
-    .zen__card {
+/* гриды - карточки */
+    .card {
         height: 100%;
         display: grid;
         grid-auto-flow: row dense;
@@ -56,134 +102,299 @@
         grid-column: span 2;
     }
 
-    .zen__card_m {
-        grid-column: span 3;
-        grid-template-rows: minmax(min-content, 0.5rem) auto calc(3.1rem + 16px);
+    .card_s {
+        grid-column: span 2;
+        height: 225px;
+        grid-template-rows: min-content 1fr;
+        grid-template-areas:
+            "header"
+            "content";
     }
 
-    .zen__card_l {
+    .card_m {
+        grid-column: span 3;
+        height: 302px;
+        grid-template-rows: minmax(min-content, 0.5rem) auto calc(3.1rem + 16px);
+        grid-template-areas:
+            "header"
+            "picture"
+            "description";
+    }
+
+    .card_l {
         grid-column: span 6;
+        height: 243px;
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: min-content 1fr;
-        align-content: center;
+        grid-template-rows: auto 1fr;
+        grid-template-areas: 
+            "picture picture header"
+            "picture picture description";
         grid-column-gap: 16px;
     }
+    /* элементы карточек */
+    .card__picture {
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+    }
 
-    .zen__card img {
+    .card__picture > picture {
+        position: absolute;
+        bottom: -4px;
+    }
+
+    .card__picture img {
         width: 100%;
     }
 
-    .zen__card > div {
+    .card__header {
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
+        max-height: 3.2rem;
+        overflow: hidden;
     }
 
-    .zen__card > div > h3 {
-        line-height: 1rem;
-        max-height: 3rem;
+    .card__header > h3 {
+        line-height: 1.1rem;
         margin: 0;
-        border-bottom: solid 16px white;
-        z-index: 100;
-        background: white;
+        font-size: 17px;
         overflow: hidden;
         display: block;
         position: relative;
     }
 
-    .zen__card > p {
+    .card__description {
+        position: relative;
+        z-index: 1;
+    }
+
+    .card__description > p {
+        line-height: 20px;
+        font-size: 14px;
         margin: 0;
         overflow: hidden;
         max-height: 100%;
-        line-height: 1rem;
-        padding-top: 16px;
+        position: absolute;
+        left: 0;
+        top: 0;
     }
-    .zen__card_m > p {
+    /* позиционирование элементов карточек внутри грида */
+    .card_s > .card__description {
+        max-height: 80%;
+    }
+
+    .card_s > .card__description {
+        min-height: 150px;
+    }
+
+    .card_s > .card__picture,
+    .card_s > .card__description,
+    .card_s > .icon,
+    .card_s > h4 {
+        grid-area: content;
+    }
+
+    .card_s:not(.card_s_img) > h4 {
+        color: black;
+        margin: 10px 0;
+    }
+    
+    .card_s > .icon-heart {
+        align-self: end;
+        margin: 10px 5px;
+    }
+
+    .card_s > .icon-navigation-more {
+        align-self: end;
+        margin: 10px 50px;
+    }
+
+    .card_s_img > .icon-navigation-more {
+        align-self: flex-start;
+        margin: 5px;
+    }
+
+    .card_m > .card__description {
+        grid-area: description;
+        margin-right: 30px;
+    }
+
+    .card_m > .card__description {
         max-height: calc(3rem + 16px);
     }
-    .zen__card_s > p {
-        padding-top: 0;
-        height: 10rem;
-        min-height: 100%;
+
+    .card_m > .card__picture,
+    .card_m > h4 {
+        grid-area: picture;
     }
 
-    .zen__card_m > div,
-    .zen__card_s_img > div {
-        max-height: calc(2rem + 16px);
-        overflow: visible;
-    }
-
-    .zen__card_m > picture {
+    .card_m > .icon-heart {
+        grid-area: description;
         align-self: end;
+        margin: 10px 5px;
     }
 
-    .zen__card_l > picture {
-        grid-column: span 2;
-        grid-row: span 2;
-        order: 1;
+    .card_m > .icon-navigation-more {
+        grid-area: description;
+        margin: 0 5px;
     }
 
-    .zen__card_l > div {
-        order: 2;
+    .card_l > .card__picture {
+        width: 100%;
+        grid-area: picture;
+        position: unset;
+    }
+    
+    .card_l > .card__picture > picture {
+        position: unset;
+    }
+    
+    .card_l > .card__picture img {
+        height: 100%;
     }
 
-    .zen__card_l > p {
-        order: 3;
+    .card_l > .card__header {
+        grid-area: header;
     }
 
-    @media (min-width: 600px) {
-        .zen__card_l > p {
-            padding-top: 0;
+    .card_l > .card__description {
+        grid-area: description;
+        margin-bottom: 20px;
+    }
+
+    .card_l > h4 {
+        grid-area: picture;
+    }
+
+    .card_l > .icon-navigation-more {
+        grid-area: description;
+        justify-self: flex-start;
+        align-self: end;
+        margin: 5px 0;
+    }
+
+    .card_l > .icon-heart {
+        grid-area: description;
+        align-self: end;
+        margin: 5px;
+    }
+
+
+    @media (min-width: 761px) {
+        /* украшательства */
+        .card_l > .card__description:after {
+            position: absolute;
+            content: "";
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 50%;
+            z-index: 2;
+            background-image: linear-gradient(to bottom, transparent, white);
         }
     }
 
-    @media (max-width: 600px) {
+    @media (min-width: 501px) {
+        /* украшательства */
+        .card_s > .card__description:after {
+            position: absolute;
+            content: "";
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 50%;
+            z-index: 2;
+            background-image: linear-gradient(to bottom, transparent, white);
+        }
+    }
+
+    @media (max-width: 760px) {
         * {
             font-size: 15px;
         }
+
         .zen {
             grid-template-columns: repeat(4, 1fr);
+            max-width: unset;
         }
-        .zen__card_s,
-        .zen__card_m {
+
+        .card_s {
             grid-column: span 2;
+            height: unset;
         }
-        .zen__card_l {
+
+        .card_s > .card__picture {
+            align-self: end;
+        }
+
+        .card_s > .card__picture > picture {
+            position: unset;
+        }
+
+        .card_m, .card_l {
             grid-column: span 4;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: unset;
+            grid-template-rows: unset;
+            grid-template-areas: 
+                "header"
+                "picture"
+                "description";
+            height: unset;
         }
-        .zen__card_l > picture {
-            grid-column: span 4;
+
+        .card_m > .card__picture > picture,
+        .card_l > .card__picture > picture {
+            position: unset;
         }
-        .zen__card_l > div {
-            order: 1;
-            grid-column: span 4;
-        }
-        .zen__card_l > p {
-            grid-column: span 4;
-        }
-        .zen__card_l > p,
-        .zen__card_s > p {
+
+        .card_m > .card__description,
+        .card_l > .card__description {
             max-height: unset;
-            /* height: 100%; */
+            margin: 0 30px 0 0;
+        }
+
+        .card_m > .card__description > p,
+        .card_l > .card__description > p {
+            position: unset;
+        }
+
+        .card_l > .icon-navigation-more {
+            grid-area: description;
+            justify-self: end;
+            align-self: unset;
+            margin: 5px;
         }
     }
 
-    @media (max-width: 400px) {
+    @media (max-width: 500px) {
         body {
             margin: 20px;
         }
+
         .zen {
             grid-template-columns: 1fr;
         }
-        .zen__card_s,
-        .zen__card_m,
-        .zen__card_l {
+
+        .card_s,
+        .card_m,
+        .card_l {
             grid-column: span 1;
+            height: unset;
+        }
+
+        .card_s > .card__description {
+            max-height: unset;
+            min-height: unset;
+            margin-bottom: 40px;
+        }
+
+        .card_s > .card__description > p {
+            position: unset;
         }
     }
 </style>
-<script src="data.js"></script>
+<script src="/data.js"></script>
 <script>
 
     function makeCard(data) {
@@ -191,21 +402,30 @@
         if (data.image) {
             const [img_name, ext] = data.image.split('.');
             img = `
-            <picture>
-                <source srcset="${img_name}@3x.${ext}" media="(min-width: 820px)">
-                <source srcset="${img_name}@2x.${ext}" media="(min-width: 620px)">
-                <source srcset="${data.image} ${img_name}@2x.${ext} 2x">
-                <img src="${img_name}@3x.${ext}">
-            </picture>
+            <div class="card__picture">
+                <picture>
+                    <source srcset="/${img_name}@3x.${ext}" media="(min-width: 820px)">
+                    <source srcset="/${img_name}@2x.${ext}" media="(min-width: 620px)">
+                    <source srcset="/${data.image} ${img_name}@2x.${ext} 2x">
+                    <img src="/${img_name}@3x.${ext}">
+                </picture>
+            </div>
         `;
         }
         const html = `
-        <div class="zen__card zen__card_${data.size} ${img ? `zen__card_${data.size}_img` : ""}">
-            <div>
+        <div class="card card_${data.size} ${img ? `card_${data.size}_img` : ""}">
+            <div class="card__header">
                 <h3 style="color: ${data.titleColor}">${data.title}</h3>
             </div>
             ${img}
-            ${data.description ? `<p>${data.description}</p>` : ''}
+            ${data.description ? `<div class="card__description"><p>${data.description}</p></div>` : ''}
+            <svg class="icon icon-heart">
+                <use xlink:href="#icon-heart"></use>
+            </svg>
+            <svg class="icon icon-navigation-more">
+                <use xlink:href="#icon-navigation-more"></use>
+            </svg>
+            <h4>${data.channelName}</h4>
         </div>
     `;
         return html;
