@@ -96,10 +96,7 @@
         grid-auto-flow: row dense;
         grid-template-columns: 1fr;
         grid-template-rows: min-content 1fr;
-    }
-
-    .zen__card_s {
-        grid-column: span 2;
+        grid-gap: 8px;
     }
 
     .card_s {
@@ -310,10 +307,6 @@
     }
 
     @media (max-width: 760px) {
-        * {
-            font-size: 15px;
-        }
-
         .zen {
             grid-template-columns: repeat(4, 1fr);
             max-width: unset;
@@ -322,6 +315,7 @@
         .card_s {
             grid-column: span 2;
             height: unset;
+            grid-template-rows: auto 1fr;
         }
 
         .card_s > .card__picture {
@@ -334,8 +328,8 @@
 
         .card_m, .card_l {
             grid-column: span 4;
-            grid-template-columns: unset;
-            grid-template-rows: unset;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr auto;
             grid-template-areas: 
                 "header"
                 "picture"
