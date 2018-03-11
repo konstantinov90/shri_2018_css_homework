@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="robots" content="noindex">
     <title>ZEN</title>
@@ -94,7 +94,12 @@
         height: 100%;
         display: grid;
         grid-auto-flow: row dense;
-        grid-gap: 8px;
+        grid-template-columns: 1fr;
+        grid-template-rows: min-content 1fr;
+    }
+
+    .zen__card_s {
+        grid-column: span 2;
     }
 
     .card_s {
